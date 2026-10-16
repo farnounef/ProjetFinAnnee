@@ -44,3 +44,7 @@ Architecture : MVC.
 
 > Remarque : le réseau Goerli n'est plus maintenu. Pour relancer le projet, utiliser un autre réseau de test comme Sepolia.
 
+## Démo
+
+[![Démo du projet SFS](https://img.youtube.com/vi/ID_VIDEO/maxresdefault.jpg)](https://www.youtube.com/watch?v=FZuGlzQsNjo)
+
