@@ -1,0 +1,171 @@
+
+ 
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Relevé de notes</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='sidebar/css/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-ew6Fp+g8WzBfhSvKdcCg1+bVKp9/gWY/km4vPPODGmKcp0kM8o55I3zNO0xlyclJ/HfN9XW+ogzdVEIHzd0tQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<style>
+	
+        .title-fiche {
+            font-size: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            color:#2368ED;
+            flex: 1;
+            text-align: center;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .card-header img {
+            flex: 1;
+            max-width: 100px;
+            height: auto;
+          }
+          
+          .card-body {
+            display: flex;
+            flex-direction: column;
+
+          }
+          .col-md-6 {
+            margin: 10px 0;
+          }
+          
+          .title-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+		h1 {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid black; /* Ajout de la bordure extérieure */
+        }
+        
+        th, td {
+            text-align: center;
+            padding: 8px;
+            border: 1px solid black; /* Ajout de la bordure intérieure */
+        }
+        
+    
+
+        
+        /* Style pour la première ligne du tableau */
+        tr:first-child {
+            background-color: #3874A9;
+            color: white;
+        }
+        
+	</style>
+
+</head>
+
+<body>
+
+  
+	<div class="student-card text-center" style="padding: 10px;">
+		<header class="card-header">
+
+			<img src="{{ url_for('static', filename='images/logoensaj.png') }}"  width="100" height="55">
+			<div class="title-wrapper">
+				<h6 class="font-weight-bold">Université Chouaib Doukkali</h6>
+				<h6 class="font-weight-bold">ENSA El Jadida</h6> 
+			<h1 class="title-fiche text-dark">Relevé de notes</h1>   
+
+		   
+			</div>
+			<img src="{{ url_for('static', filename='images/cho-removebg-preview.png') }}"  width="100" height="100">
+		</header>
+	</div>
+			<br>
+	
+			<div style="margin: 40px;">
+			<!-- Informations étudiant -->
+			<h4 style="color:#3874A9; font-family: Arial;">Informations étudiant</h4>
+		    <div >	
+			<span style="margin-right:50px;">Nom: {{ etudiant['nom'] }}</span>
+			<span>Prénom: {{ etudiant['prenom'] }}</span>
+			</div>	
+			<div>	
+			<span style="margin-right: 50px;"> CNE: {{ etudiant['CNE'] }}</span>
+			<span >CIN: {{ etudiant['CIN'] }}<span>
+			</div>	
+			<div>Date de naissance: {{ etudiant['naissance'] }}</div>
+			<div>Filière: {{ etudiant['filiere'] }}</div>
+			<!-- Tableau des notes -->
+			<table >
+			  <tr>
+			    <th>Modules</th>
+			    <th>Note</th>
+			    <th>Résultat</th>
+			  </tr>
+			  {% for module in modules %}
+			    <tr>
+			      <td>{{ module[0] }}</td>
+			      <td>{{ module[1] }}</td>
+			      <td>{% if module[1] is not none and module[1] >= 10 %}Validé{% else %}Non Validé{% endif %}</td>
+			    </tr>
+			  {% endfor %}
+			</table>
+
+			<br>
+
+			<!-- Tableau du résultat d'admission -->
+			<table class="table table-bordered" style="border-collapse: collapse;border-spacing: 0;">
+			  <tr>
+			    <td>Résultat d'admission</td>
+			    <td>{{moyenne_generale}}</td>
+			    <td>{% if moyenne_generale is not none and moyenne_generale >= 10 %}Validé{% else %}Non Validé{% endif %}</td>
+			  </tr>
+
+			</table>
+              
+              
+		</div>
+	</div>
+</div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNSBXTp" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script src="{{ url_for('static', filename='sidebar/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='sidebar/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='sidebar/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='sidebar/js/main.js') }}"></script>
+	
+</body>
+
+</html>
+
+
+
+

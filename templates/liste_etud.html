@@ -1,0 +1,75 @@
+{% extends "base_etudiant.html" %}
+
+{% block content %}
+    {% include "navbar_prof.html" %}
+    <div class="text-center" style="padding: 10px;">
+        <header class="card-header">
+
+            <img src="{{ url_for('static', filename='images/logoensaj.png') }}"  width="100" height="55">
+            <div class="title-wrapper">
+              <h6 class="font-weight-bold">Université Chouaib Doukkali</h6>
+              <h6 class="font-weight-bold">ENSA El Jadida</h6>   
+            </div>
+            <img src="{{ url_for('static', filename='images/cho-removebg-preview.png') }}"  width="100" height="100">
+          </header>
+        <h3 class="mt-4 text-center" style="color: #3874A9;">Insertion des notes</h3>        
+<br>
+    </div>
+
+    <form method="post" action="{{ url_for('ajouter_note') }}" >
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Matière</th>
+                            <th>Nom de l'étudiant</th>
+                            <th>Prénom de l'étudiant</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td><input type="text" name="matiere" value="{{ matiere }}" readonly class="form-control"></td>
+                            <td><input type="text" name="nom" value="{{ user[1] }}" readonly class="form-control"></td>
+                            <td><input type="text" name="prenom" value="{{ user[2] }}" readonly class="form-control"></td>
+                            <td>
+                                {% if user[3] is not none %}
+                                <input type="text" name="note" id="note_{{ user[0] }}" class="form-control" value="{{ user[3] }}" readonly>
+                                {% else %}
+                                <input type="text" name="note" id="note_{{ user[0] }}" class="form-control">
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary" id="enregistrer_btn" disabled>Enregistrer</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function checkNotes() {
+            var allNotesFilled = true;
+            var noteInputs = document.querySelectorAll("[id^='note_']");
+            for (var i = 0; i < noteInputs.length; i++) {
+                if (noteInputs[i].value === "") {
+                    allNotesFilled = false;
+                    break;
+                }
+            }
+            var enregistrerBtn = document.getElementById("enregistrer_btn");
+            enregistrerBtn.disabled = !allNotesFilled;
+        }
+
+        var noteInputs = document.querySelectorAll("[id^='note_']");
+        for (var i = 0; i < noteInputs.length; i++) {
+            noteInputs[i].addEventListener("change", checkNotes);
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,138 @@
+
+{% extends "template.html" %}
+{% block content %}
+<style>
+     #header{
+    background-color: #302b2b ;
+  }
+  .cta {
+  background: fixed center center;
+  background-color: #302b2b;
+  background-size: cover;
+  padding: 60px 0;
+}
+body {
+  position: relative;
+  background-image: url('../static/assets/img/ensaj.jpg');
+  background-size: cover;
+}
+
+body::before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none; /* Ajout de cette ligne pour permettre le clic sur le bouton */
+}
+
+</style>
+
+    
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<h1 style="color: #ffc451; text-align: center;font-family: Arial;">Charger un PDF</h1>
+<br>
+<br>
+
+<form method="POST" action="{{ url_for('upload_file') }}" enctype="multipart/form-data">
+    <div style="text-align: center;">
+        <label style="text-align: center;" for="file-upload" class="custom-file-upload">
+            <i class="fas fa-cloud-upload-alt"></i> Choisir un fichier
+        </label>
+        <input id="file-upload" type="file" name="file" style="display: none;">
+        <span id="file-name" style="margin-left: 10px; color:white;">Aucun fichier n'a été sélectionné</span>
+    </div>
+    <br>
+    <div style="text-align: center;" >
+        <input class="cc" id="upload-btn" type="submit" value="Charger" class="btn btn-primary" disabled>
+        <span id="file-error" style="color: red; margin-left: 10px; display: none;">s'il vous plait choisir un fichier</span>
+    </div>
+</form>
+
+<script>
+    const fileUpload = document.getElementById("file-upload");
+    const fileName = document.getElementById("file-name");
+    const uploadBtn = document.getElementById("upload-btn");
+    const fileError = document.getElementById("file-error");
+
+    fileUpload.addEventListener("change", function() {
+        if (fileUpload.value) {
+            fileName.innerText = fileUpload.files[0].name;
+            uploadBtn.disabled = false;
+            fileError.style.display = "none";
+        } else {
+            fileName.innerText = "Aucun fichier n'a été sélectionné";
+            uploadBtn.disabled = true;
+            fileError.style.display = "inline";
+        }
+    });
+</script>
+
+
+
+<style>
+.custom-file-upload {
+    color: white;
+    background-color: #ffc451;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition-duration: 0.3s;
+}
+.cc{
+    color: white;
+    background-color: #ffc451;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    
+    font-size: 16px;
+    transition-duration: 0.3s;
+}
+.custom-file-upload:hover {
+    background-color: #ffc451;
+}
+
+.btn-primary {
+    background-color: #ffc451;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition-duration: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #ffc451;
+}
+</style>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}
+
+
+

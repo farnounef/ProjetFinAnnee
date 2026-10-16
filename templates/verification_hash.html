@@ -1,0 +1,215 @@
+{% extends "template.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload PDF</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+<body>
+  <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div style="text-align: center;">
+  <div style="display:none;">
+      <span id="hash">{{hash}}</span>
+  </div>
+  <button onclick="verifyPDF()" class="custom-file-upload">Vérifier le PDF</button>
+</div>
+<br>
+
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+    <style>
+
+      .custom-file-upload {
+          color: white;
+          background-color: #ffc451;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          transition-duration: 0.3s;
+      }
+      
+      .custom-file-upload:hover {
+          background-color: #634a19;
+      }
+      
+      .btn-primary {
+          background-color: #ffc451;
+          border: none;
+          border-radius: 5px;
+          color: white;
+          font-size: 16px;
+          padding: 10px 20px;
+          transition-duration: 0.3s;
+      }
+      
+      .btn-primary:hover {
+          background-color: #ffc451;
+      }
+      #header{
+    background-color: #302b2b ;
+  }
+  .cta {
+  background: fixed center center;
+  background-color: #302b2b;
+  background-size: cover;
+  padding: 60px 0;
+}
+body {
+  position: relative;
+  background-image: url('../static/assets/img/ensaj.jpg');
+  background-size: cover;
+}
+
+body::before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none; /* Ajout de cette ligne pour permettre le clic sur le bouton */
+}
+
+
+
+  .custom-file-upload {
+    color: white;
+    background-color: #ffc451;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition-duration: 0.3s;
+}
+
+.custom-file-upload:hover {
+    background-color: #ffbe31;
+}
+button.custom-file-upload {
+  z-index: 999; /* Set a higher z-index value than the overlay */
+  pointer-events: auto; /* Allow the button to receive pointer events */
+}
+#hash {
+  display: block;
+  margin: auto;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid black;
+  max-width: 80%;
+  text-align: center;
+}
+
+
+
+      </style>
+
+        <script>
+            const ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"addAdministrator","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"addProfessor","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"addStudent","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"changeOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"checkPerson","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"enum TranscriptContract.Role","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_hash","type":"bytes32"}],"name":"createTranscript","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"deletePerson","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_hash","type":"bytes32"}],"name":"deleteTranscript","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_hash","type":"bytes32"}],"name":"getTranscript","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"},{"internalType":"enum TranscriptContract.Role","name":"role","type":"uint8"}],"name":"updateRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_hash","type":"bytes32"}],"name":"verifyTranscript","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"}]
+            const contractAddress = "0xE2d0e16312d5A504508ca2Cd2843ee426a889030";
+            const GoerliChainId = "0x5"
+            var connected = false
+            var currentHash = ""
+            var account = ""
+            var contract;
+            
+              async function connectWallet(){
+                if(window.ethereum){
+                  const currentChainId = await ethereum.request({ method: 'eth_chainId' });
+                  if(currentChainId != GoerliChainId){
+                    await switchToGoerli()
+                  }
+                  await window.ethereum.send("eth_requestAccounts");
+                  window.web3 = new Web3(window.ethereum);
+                }else {
+                  window.open("https://metamask.io/download/", "_blank");
+                  return 
+                }
+                var accounts = await web3.eth.getAccounts();
+                account = accounts[0]     
+                contract = await new web3.eth.Contract(ABI, contractAddress)
+                connected = true
+                
+                console.log("Connected")
+              }
+            
+              async function switchToGoerli() {
+                try {
+                  await ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x5' }], // Goerli chain ID
+                  });
+                  console.log('Switched to Georli network!');
+                } catch (error) {
+                  console.error('Error switching network:', error);
+                }
+              }
+            
+        
+              async function verifyPDF(){
+                if(currentHash != ""){
+                  try{
+                    const result = await contract.methods.verifyTranscript("0x"+currentHash).call()
+                    alert('result : '+ result)
+                  }catch(error){
+                    console.error("error : ", error)
+                  }
+                }else{
+                  console.log("connect your metamask or upload a PDF and hash it")
+                }
+              }
+        
+        
+              window.onload =async function() {
+                // Your code here
+                currentHash=document.getElementById("hash").textContent
+                //alert(currentHash)
+                
+                await connectWallet()
+
+                
+            };
+            </script>        
+</body>
+</html>
+
+{% endblock %}
+
+
+

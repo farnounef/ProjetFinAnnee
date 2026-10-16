@@ -1,0 +1,121 @@
+{% extends "base_etudiant.html" %}
+
+{% block content %}
+{% include "navbar_etudiant.html" %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Relevé de notes</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style>
+		@media print {
+			.btn-print {
+				display: none;
+			}
+			nav{
+				display:none !important;
+			}
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid black; /* Ajout de la bordure extérieure */
+        }
+        
+        th, td {
+            text-align: center;
+            padding: 8px;
+            border: 1px solid black; /* Ajout de la bordure intérieure */
+        }
+        
+		tr:first-child {
+            background-color: #3874A9;
+            color: white;
+        }
+
+		.btn-print {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="student-card text-center" style="padding: 10px;">
+		<header class="card-header">
+
+			<img src="{{ url_for('static', filename='images/logoensaj.png') }}"  width="100" height="55">
+			<div class="title-wrapper">
+				<h6 class="font-weight-bold">Université Chouaib Doukkali</h6>
+				<h6 class="font-weight-bold">ENSA El Jadida</h6>  
+			  
+		   
+			</div>
+			<img src="{{ url_for('static', filename='images/cho-removebg-preview.png') }}"  width="100" height="100">
+		</header>
+	</div>
+<br>
+<div style="margin:40px;">
+			<!-- Informations étudiant -->
+			<h4 style="color:#3874A9; font-family: Arial;">Informations étudiant</h4>
+		    <div >	
+			<span style="margin-right:50px;">Nom: {{ etudiant['nom'] }}</span>
+			<span>Prénom: {{ etudiant['prenom'] }}</span>
+			</div>	
+			<div>	
+			<span style="margin-right: 50px;"> CNE: {{ etudiant['CNE'] }}</span>
+			<span >CIN: {{ etudiant['CIN'] }}<span>
+			</div>	
+			<div>Date de naissance: {{ etudiant['naissance'] }}</div>
+			<div>Filière: {{ etudiant['filiere'] }}</div>
+			
+<!-- Tableau des notes -->
+    <table>
+          <tr>
+            <th>Module</th>
+            <th>Note</th>
+            <th>Resultat</th>
+          </tr>
+          {% for row in results %}
+            <tr>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{% if row[1] is not none and row[1] >= 10 %}Validé{% else %}Non Validé{% endif %}</td>
+            </tr>
+          {% endfor %}
+      </table>
+      <br>
+      <!-- Tableau du résultat d'admission -->
+      <table class="table table-bordered" style="border-collapse: collapse;border-spacing: 0;">
+          <tr>
+            <td>Résultat d'admission</td>
+            <td>{{ moyenne_generale }}</td>
+            <td>{% if moyenne_generale is not none and moyenne_generale >= 10 %}Validé{% else %}Non Validé{% endif %}</td>
+          </tr>
+      </table>
+
+			<br>
+
+			<!-- Bouton d'impression -->
+			<div class="text-center">
+				<button onclick="window.print();" class="btn btn-primary btn-lg btn-print" style="background-color: #DDE3EA;color:black;" >Imprimer le relevé de notes</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</body>
+
+</html>
+
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base_etudiant.html" %}
+
+{% block content %}
+    {% include "navbar_admin.html" %}
+    
+    {% for i in range(1, 4) %}
+      <h3>Niveau {{ i }}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Date de naissance</th>
+            <th>Lieu de naissance</th>
+            <th>CNE</th>
+            <th>CNI</th>
+            <th>Adresse</th>
+            <th>Email</th>
+            <th>GSM</th>
+            <th>Semestre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for etudiant in data_niveau %}
+            {% if etudiant.niveau == i %}
+            <tr>
+              <td>{{ etudiant.nom }}</td>
+              <td>{{ etudiant.naissance }}</td>
+              <td>{{ etudiant.lieux }}</td>
+              <td>{{ etudiant.CNE }}</td>
+              <td>{{ etudiant.CIN }}</td>
+              <td>{{ etudiant.adresse }}</td>
+              <td>{{ etudiant.email }}</td>
+              <td>{{ etudiant.gsm }}</td>
+              <td>{{ etudiant.id_semestre }}</td>
+            </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+    
+{% endblock %}

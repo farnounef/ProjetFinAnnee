@@ -1,0 +1,141 @@
+{% extends "base_etudiant.html" %}
+
+{% block content %}
+<style>
+  th {
+      background-color: #3874A9;
+      color: white;
+  }
+ 
+  
+</style>
+
+<div class="container mt-5">
+
+  {% include "navbar_admin.html" %}
+
+  <h3 class="mb-5" style="color: #3874A9;">Liste des étudiants</h3>
+  <!--<h1>{{hashpdf}}</h1>-->
+  <div class="row">
+    <div class="col">
+      <h5 style="font-family: Arial;">Niveau 1</h5>
+      <table class="table table-bordered table-hover">
+        <thead class="bg-primary text-white">
+          <tr>
+            <th>Nom</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for nom_etudiant in data_niveau1 %}
+          <tr>
+              <td>{{ nom_etudiant }}</td>
+              {% if data_niveau1[nom_etudiant]['is_disabled'] %}
+                  <td><button class="btn btn-outline-primary btn-sm" style="background-color: #3874A9;color:white;" disabled>Générer relevé de notes</button></td>
+              {% else %}
+                  <td><a href="{{ url_for('relevenote_admin',cne=data_niveau1[nom_etudiant]['cne']) }}" class="btn btn-outline-primary btn-sm" style="background-color: #3874A9;color:white;" role="button">Générer relevé de notes</a></td>
+              {% endif %}
+          </tr>
+      {% endfor %}
+      
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <h5 style="font-family: Arial;">Niveau 2</h5>
+      <table class="table table-bordered table-hover">
+        <thead class="bg-primary text-white">
+          <tr>
+            <th>Nom</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for nom_etudiant in data_niveau2 %}
+          <tr>
+              <td>{{ nom_etudiant }}</td>
+              {% if data_niveau2[nom_etudiant]['is_disabled'] %}
+                  <td><button class="btn btn-outline-primary btn-sm" style="background-color: #3874A9;color:white;" disabled>Générer relevé de notes</button></td>
+              {% else %}
+                  <td><a href="{{ url_for('relevenote_admin',cne=data_niveau2[nom_etudiant]['cne']) }}" class="btn btn-outline-primary btn-sm" style="background-color: #3874A9;color:white;" role="button">Générer relevé de notes</a></td>
+              {% endif %}
+          </tr>
+      {% endfor %}
+      
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <h5 style="font-family: Arial;">Niveau 3</h5>
+      <table class="table table-bordered table-hover">
+        <thead class="bg-primary text-white">
+          <tr>
+            <th>Nom</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for nom_etudiant in data_niveau3 %}
+          <tr>
+              <td>{{ nom_etudiant }}</td>
+              {% if data_niveau3[nom_etudiant]['is_disabled'] %}
+                  <td ><button class="btn btn-outline-primary btn-sm"  style="background-color: #3874A9;color:white;"  disabled>Générer relevé de notes</button></td>
+              {% else %}
+                  <td><a href="{{ url_for('relevenote_admin',cne=data_niveau3[nom_etudiant]['cne']) }}" class="btn btn-outline-primary btn-sm" style="background-color: #3874A9;color:white;" role="button">Générer relevé de notes</a></td>
+              {% endif %}
+          </tr>
+      {% endfor %}
+      
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"addAdministrator","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"addProfessor","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"addStudent","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"changeOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"checkPerson","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"enum TranscriptContract.Role","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_hash","type":"bytes32"}],"name":"createTranscript","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"deletePerson","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_hash","type":"bytes32"}],"name":"deleteTranscript","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_hash","type":"bytes32"}],"name":"getTranscript","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"},{"internalType":"enum TranscriptContract.Role","name":"role","type":"uint8"}],"name":"updateRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_hash","type":"bytes32"}],"name":"verifyTranscript","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"}]
+const contractAddress = "0xE2d0e16312d5A504508ca2Cd2843ee426a889030";
+const GoerliChainId = "0x5"
+var connected = false
+var currentHash = ""
+var account = ""
+var contract;
+
+  async function connectWallet(){
+    if(window.ethereum){
+      const currentChainId = await ethereum.request({ method: 'eth_chainId' });
+      if(currentChainId != GoerliChainId){
+        await switchToGoerli()
+      }
+      await window.ethereum.send("eth_requestAccounts");
+      window.web3 = new Web3(window.ethereum);
+    }else {
+      window.open("https://metamask.io/download/", "_blank");
+      return 
+    }
+    var accounts = await web3.eth.getAccounts();
+    account = accounts[0]     
+    contract = await new web3.eth.Contract(ABI, contractAddress)
+    connected = true
+  }
+
+  async function switchToGoerli() {
+    try {
+      await ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x5' }], // Goerli chain ID
+      });
+      console.log('Switched to Georli network!');
+    } catch (error) {
+      console.error('Error switching network:', error);
+    }
+  }
+
+  window.onload = async function() {
+    // Your code here
+    await connectWallet()
+};
+</script>
+{% endblock %}
+

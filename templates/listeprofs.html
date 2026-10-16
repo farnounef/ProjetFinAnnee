@@ -1,0 +1,12 @@
+{% extends "base_etudiant.html" %}
+
+{% block content %}
+    {% include "navbar_admin.html" %}
+    {% for professeur in professeurs %}
+    <p>{{ professeur[0] }} {{ professeur[1] }}</p>
+     {% endfor %}
+
+
+
+    {% endblock %}  
+        

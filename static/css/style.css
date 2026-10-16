@@ -1,0 +1,108 @@
+body            { font-family: sans-serif; background: #eee; }
+a, h1, h2       { color: #377BA8; }
+h1, h2          { font-family: 'Georgia', serif; margin: 0; }
+h1              { border-bottom: 2px solid #eee; }
+h2              { font-size: 1.5em; }
+
+.page           { 
+	margin: 2em auto; 
+	width: 50em; 
+	border: 1px solid #30c0fd;
+	padding: 0.8em; 
+	background: white; 
+}
+.input-value{
+	border: 1px solid #30c0fd;
+}
+.entries        { list-style: none; margin: 0; padding: 0; }
+.entries li     { margin: 0.8em 1.2em; }
+.entries li h2  { margin-left: -1em; }
+.add-task     	{ font-size: 0.9em; border-bottom: 1px solid #ccc; }
+.add-task dl   	{ font-weight: bold; }
+.metanav        { text-align: right; font-size: 0.8em; padding: 0.3em;
+                  margin-bottom: 1em; background: #fafafa; }
+.flash          { background: #CEE5F5; padding: 0.5em;
+                  border: 1px solid #AACBE2; }
+.error          { background: #F0D6D6; padding: 0.5em; }
+
+.datagrid table { border-collapse: collapse; text-align: left; width: 100%; } 
+.datagrid {background: #fff; overflow: hidden; border: 1px solid #000000; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+.datagrid table td, .datagrid table th { padding: 3px 10px; }
+.datagrid table thead th {background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #000000) );background:-moz-linear-gradient( center top, #000000 5%, #000000 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000');background-color:#000000; color:#FFFFFF; font-size: 15px; font-weight: bold; } 
+.datagrid table thead th:first-child { border: none; }.datagrid table tbody td { color: #000000; border-left: 1px solid #E1EEF4;font-size: 12px;font-weight: normal; }
+.datagrid table tbody .alt td { background: #E1EEF4; color: #000000; }
+.datagrid table tbody td:first-child { border-left: none; }
+.datagrid table tbody tr:last-child td { border-bottom: none; }
+
+.button {
+	background-color:#000;
+	display:inline-block;
+	color:#ffffff;
+	font-size:13px;
+	padding:3px 12px;
+	margin: 0;
+	text-decoration:none;
+	position:relative;
+}
+
+.navigator{
+	width: 100px;
+}
+/* Style the container */
+.login-container {
+	max-width: 500px;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f2f2f2;
+  }
+  
+  /* Style the header */
+  .login-container h2 {
+	font-size: 32px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 30px;
+  }
+  
+  /* Style the form */
+  .login-container form {
+	display: flex;
+	flex-direction: column;
+  }
+  
+  /* Style the input fields */
+  .login-container .input-field {
+	margin-bottom: 20px;
+  }
+  
+  .login-container label {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+  }
+  
+  .login-container input[type=text],
+  .login-container input[type=password] {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
+  }
+  
+  /* Style the submit button */
+  .login-container .submit-btn input[type=submit] {
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+  }
+  
+  .login-container .submit-btn input[type=submit]:hover {
+	background-color: #3e8e41;
+  }
+  

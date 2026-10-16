@@ -1,0 +1,68 @@
+{% extends "base_etudiant.html" %}
+
+{% block content %}
+{% include "navbar_prof.html" %}
+<style>
+  /* Style pour le titre h1 */
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  /* Style pour le conteneur des liens de filières */
+  .list-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  /* Style pour les liens de filières */
+  .list-group-item {
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #3874A9;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px;
+    min-width: 200px;
+  }
+  
+  /* Style pour les liens de filières au survol */
+  .list-group-item:hover {
+    background-color: #3874A9;
+    color: #fff;
+  }
+</style>
+<div class="text-center" style="padding: 10px;">
+  <header class="card-header">
+
+    <img src="{{ url_for('static', filename='images/logoensaj.png') }}"  width="100" height="55">
+    <div class="title-wrapper">
+      <h6 class="font-weight-bold">Université Chouaib Doukkali</h6>
+      <h6 class="font-weight-bold">ENSA El Jadida</h6>   
+    </div>
+    <img src="{{ url_for('static', filename='images/cho-removebg-preview.png') }}"  width="100" height="100">
+  </header>
+   
+
+</div>
+<h3 class="mt-4 text-center" style="color: #3874A9;">Matières</h3>
+  <div class="list-group mt-5 container" style="max-width: 500px;">
+    {% for matiere in matieres %}
+    <a href="/liste_etud/{{ filiere }}/{{ semestre }}/{{ module }}/{{ matiere[0] }}" class="list-group-item list-group-item-action">{{ matiere[0] }}</a>
+    <br> 
+    {% endfor %}
+  </div>
+
+
+
+
+</div>
+
+{% endblock %}

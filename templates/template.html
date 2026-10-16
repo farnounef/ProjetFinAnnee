@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>SFS</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+<!-- Favicons -->
+<link href="{{ url_for('static', filename='assets/img/favicon.png') }}" rel="icon">
+<link href="{{ url_for('static', filename='assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+
+<!-- Template Main CSS File -->
+<link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-lg-between">
+
+      <h1 class="logo me-auto me-lg-0"><a href="">SFS<span>.</span></a></h1>
+      
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/">Acceuil</a></li>
+          <li><a class="nav-link scrollto" href="/contac">Contact</a></li>
+          
+          
+          <li class="dropdown"><a href="#"><span>Service</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/hasher_PDF">vérifier un relevé</a></li>      
+          </li>
+        
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+    
+      <a href="{{ url_for('log')}}" class="get-started-btn scrollto">se connecter</a>
+
+    </div>
+  </header><!-- End Header -->
+
+    
+    {% if session['logged_in'] and session['profil'] %}
+    <a href="/logout">Logout</a> | {{session['profil']}} | {{session['name']}}
+    {% endif %}
+      
+    
+    <div >
+      {% for message in get_flashed_messages() %}
+      <div>{{ message }}</div>
+      {% endfor %}
+      
+      {% block content %}
+      {% endblock %}
+    </div>
+ 
+
+
+
+        <!-- ======= footer Section ======= -->
+        <footer class="footer" id="foot">
+          <section id="cta" class="cta">
+            <div class="container" data-aos="zoom-in">
+      
+              <div class="row">
+                <div class="col-md-4">
+                  <img src="{{ url_for('static', filename='assets/img/logoensaj.png') }}" alt="Bootstrap" width="100" height="55">
+      
+                  <p>ecole nationnal des sciences appliqués<br>
+                    7H28+C96, El Jadida<br>
+                  el jadida, maroc<br>
+                  Téléphone: +212-62578914<br>
+                  Email: administ@ucd.ma</p>
+                </div>
+                <div class="col-md-4">
+                  <h3>Liens utiles</h3>
+                  <ul>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Programmes d'études</a></li>
+                    <li><a href="#">Administrations</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  
+                    <iframe style="border:0; width: 100%; height: 270px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13257.794192961118!2d-8.5298704!3d33.2431474!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdaeed821719c869%3A0x68bae059b6e24592!2sENSA%20El%20Jadida!5e0!3m2!1sen!2sma!4v1652010684328!5m2!1sen!2sma" frameborder="0" allowfullscreen></iframe>
+                  
+                </div>
+              </div>
+      
+            </div>
+          </footer>
+          </section>
+          <div id="preloader"></div>
+          <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        
+          <!-- Vendor JS Files -->
+          <script src="{{ url_for('static', filename='assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+          <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+          <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+          <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+          <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+          <script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+          <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
+          
+          <!-- Template Main JS File -->
+          <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+        
+        
+        </body>
+        
+        </html>

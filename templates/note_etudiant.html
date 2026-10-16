@@ -1,0 +1,115 @@
+{% extends "base_etudiant.html" %}
+
+{% block content %}
+{% include "navbar_etudiant.html" %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Notes</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        @media print {
+            .btn-print {
+                display: none;
+            }
+            nav{
+                display:none !important;
+            }
+        }
+    
+        body {
+            font-family: Arial, sans-serif;
+         
+        }
+    
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+    
+        th, td {
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+    
+        th {
+            background-color: #3874A9;
+            color: white;
+        }
+    
+  
+    
+        .btn-print {
+            margin-top: 20px;
+        }
+    </style>
+    
+</head>
+<body>
+
+
+			<div class="student-card text-center" style="padding: 10px;">
+				<header class="card-header">
+
+					<img src="{{ url_for('static', filename='images/logoensaj.png') }}"  width="100" height="55">
+					<div class="title-wrapper">
+						<h6 class="font-weight-bold">Université Chouaib Doukkali</h6>
+						<h6 class="font-weight-bold">ENSA El Jadida</h6> 
+					
+					
+
+				   
+					</div>
+					<img src="{{ url_for('static', filename='images/cho-removebg-preview.png') }}"  width="100" height="100">
+				</header>
+			</div>
+            <br>
+			<!-- Tableau des notes -->
+			<div style="margin: 40px;">
+			<table>
+				<thead>
+					<tr>
+						<th>Module</th>
+						<th>Matière</th>
+						<th>Note</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% set last_module = '' %}
+					{% for result in results %}
+						{% set matieres = result[1].split(', ') %}
+						{% set notes = result[2].split(', ') %}
+						{% if result[0] != last_module %}
+							{% set row_span = matieres|length %}
+							<tr>
+								<td rowspan="{{ row_span }}">{{ result[0] }}</td>
+								{% set last_module = result[0] %}
+						{% endif %}
+						{% for i in range(matieres|length) %}
+							{% if i != 0 %}
+								<tr>
+							{% endif %}
+							<td>{{ matieres[i] }}</td>
+							<td>{{ notes[i] }}</td>
+							{% if i == 0 %}
+								</tr>
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+</body>
+</html>
+
+{% endblock %}
